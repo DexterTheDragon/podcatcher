@@ -1827,8 +1827,10 @@ class Cache
     end
     #fetch enclosures
     item = total = 0
-    @cache.each() do |e|
-      total+= e.size
+    if @opt.empty
+      @cache.each() do |e|
+        total+= e.size
+      end
     end
     torrents = []
     torrentfiles = []
@@ -1846,6 +1848,7 @@ class Cache
         #make place in cache
         while @opt.size and content.size+inc+total > @opt.size
           break if @opt.simulate
+          break unless @opt.empty
           f = @cache.shift
           break unless f
           total-= f.size
